@@ -120,11 +120,13 @@ Obsoletes: <%= repl %>
 <%   if script?(:before_upgrade) or script?(:before_install) -%>
 %pre
 upgrade() {
+  :
 <%     if script?(:before_upgrade) -%>
 <%=      script(:before_upgrade) %>
 <%     end -%>
 }
 install() {
+  :
 <%     if script?(:before_install) -%>
 <%=      script(:before_install) %>
 <%     end -%>
@@ -139,13 +141,15 @@ then
 fi
 <%   end -%>
 <%   if script?(:after_upgrade) or script?(:after_install) -%>
-%pre
+%post
 upgrade() {
+  :
 <%     if script?(:after_upgrade) -%>
 <%=      script(:after_upgrade) %>
 <%     end -%>
 }
 install() {
+  :
 <%     if script?(:after_install) -%>
 <%=      script(:after_install) %>
 <%     end -%>
@@ -153,7 +157,7 @@ install() {
 if [ "${1}" -eq 1 ]
 then
     install
-    # "before install" goes here
+    # "after install" goes here
 elif [ "${1}" -gt 1 ]
 then
     upgrade
